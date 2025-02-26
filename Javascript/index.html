@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hình Tròn</title>
+    <style>
+        /* Container chứa canvas, thiết lập màu nền và loại bỏ tràn */
+        .container {
+            position: relative;
+            margin: 0;
+            overflow: hidden;
+            background-color: yellow;
+            margin-top: 10px;
+        }
+
+        /* Định dạng canvas để hiển thị toàn bộ màn hình */
+        canvas {
+            display: block;
+        }
+
+        /* Định dạng nút liên kết để chuyển trang */
+        .link {
+            position: absolute;
+            z-index: 1000;
+            top: 5%;
+            left: 48%;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nút liên kết để chuyển sang trang index2.html -->
+    <a class="link" href="index2.html">Click Xem Bài 2</a>
+
+    <!-- Khu vực chứa canvas để vẽ hình tròn -->
+    <div class="container">
+        <canvas id="myCanvas"></canvas>
+    </div>
+
+    <script>
+        // Lấy thẻ canvas và context để vẽ
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Thiết lập kích thước canvas theo kích thước màn hình
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let radius = 10; // Bán kính ban đầu của hình tròn
+        const centerX = canvas.width / 2; // Tọa độ X của tâm
+        const centerY = canvas.height / 2; // Tọa độ Y của tâm
+        const maxRadius = canvas.width / 10; // Bán kính tối đa
+        let speed = 0.1; // Tốc độ tăng bán kính
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Xóa toàn bộ canvas trước khi vẽ
+            ctx.fillStyle = "red"; // Thiết lập màu đỏ cho hình tròn
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2); // Vẽ hình tròn
+            ctx.fill();
+
+            radius += speed; // Tăng bán kính dần dần
+            if (radius >= maxRadius) {
+                radius = 10; // Khi đạt bán kính tối đa, quay về giá trị ban đầu
+            }
+
+            requestAnimationFrame(draw); // Lặp lại animation
+        }
+
+        draw();
+    </script>
+</body>
+
+</html>
